@@ -11,7 +11,7 @@ const Auth = () => {
         <div className='auth-container'>
             <div className='auth-method'>
                 {currentUrl.endsWith('login') ?
-                    <div className="login-method">
+                    <>
                         <div className="choose-method">
                             <h3>No account yet?</h3>
                             <a href="/registration">Sign Up</a>
@@ -19,10 +19,10 @@ const Auth = () => {
                         <div className="auth-input-container">
                             <LogIn />
                         </div>
-                    </div>
+                    </>
                      :
                 currentUrl.endsWith('registration') ?
-                    <div className="registration-method">
+                    <>
                         <div className="choose-method">
                             <h3>Already have account?</h3>
                             <a href="/login">Log In</a>
@@ -30,11 +30,10 @@ const Auth = () => {
                         <div className="auth-input-container">
                             <Registration />
                         </div>
-                    </div>  : console.error('error')
+                    </>  : console.error('error')
                 }
 
             </div>
-
         </div>
     );
 };
