@@ -10,18 +10,18 @@ export const privateRoutes = [
         path: ADMIN_ROUTE,
         Component: <Admin />
     },
-    {
-        path: REPOLIST_ROUTE,
-        Component: <RepoList />
-    },
-    {
-        path: REPOLIST_ROUTE + '/:id',
-        Component: <Repo />
-    }
+
+
 ]
 
 export const publicRoutes = [
     {
+        path: REPOLIST_ROUTE,
+        Component: <RepoList />
+    },{
+        path: REPOLIST_ROUTE + '/:id',
+        Component: <Repo />
+    },{
         path: MAINPAGE_ROUTE,
         Component: <MainPage />
     }

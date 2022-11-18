@@ -4,6 +4,8 @@
     padding: 0.5rem 0;
     display: flex;
     align-items: center;
+    background: none;
+    z-index: 1;
 }
 
 .navbar-container {
@@ -25,16 +27,21 @@
     fill: #9E77ED;
     padding: 0;
 }
+.navbar-list {
+    display: flex;
+    flex-direction: row;
+}
 
-.navbar-list a {
+.navbar-list * {
+    cursor: pointer;
     margin: 0 10px;
     text-decoration: none;
-    color: #667085;
+    color: #D0D5DD;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.navbar-list a:hover {
+.navbar-list *:hover {
     color: #101828;
 }
 
@@ -43,7 +50,7 @@
     padding: 0;
 
     cursor: pointer;
-    background: #9E77ED;
+    background: #53389E;
     width: 110px;
     height: 40px;
     border-radius: 8px;
