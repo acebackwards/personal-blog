@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import UserStore from "./store/UserStore";
 import RepoStore from "./store/RepoStore";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Context = createContext(null)
 
