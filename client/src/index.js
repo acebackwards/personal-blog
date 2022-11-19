@@ -1,22 +1,24 @@
-import React, {createContext} from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React, { createContext } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
 import UserStore from "./store/UserStore";
 import RepoStore from "./store/RepoStore";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-export const Context = createContext(null)
+export const Context = createContext(null);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <Context.Provider value={{
-          user: new UserStore(),
-          repos: new RepoStore()
-      }}>
-          <App />
-      </Context.Provider>
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+        repos: new RepoStore(),
+      }}
+    >
+      <App />
+    </Context.Provider>
   </React.StrictMode>
 );
 
