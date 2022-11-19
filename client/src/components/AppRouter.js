@@ -8,6 +8,8 @@ const AppRouter = () => {
     const {user} = useContext(Context)
 
     return (
+        <div className='bg-container'>
+            <div className="main-container">         
         <Routes>
             {user.isAuth && privateRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={Component} exact/>
@@ -20,6 +22,8 @@ const AppRouter = () => {
             )}
             <Route path='*' element={<Navigate to={MAINPAGE_ROUTE}/>} />
         </Routes>
+        </div>
+        </div>
     );
 };
 

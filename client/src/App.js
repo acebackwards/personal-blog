@@ -8,10 +8,10 @@ function App() {
 
   return (
     <BrowserRouter>
-        {currentUrl.endsWith('login') || currentUrl.endsWith('registration') ?
-            <></> :
+        {/* {currentUrl.endsWith('login') || currentUrl.endsWith('registration') ? */}
+            {/* <></> : */}
             <NavBar />
-        }
+        {/* } */}
         <AppRouter />
     </BrowserRouter>
   );

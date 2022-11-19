@@ -3,18 +3,19 @@ import {Context} from "../../index";
 import './NavBar.css'
 import LogoSVG from '../../img/logo.svg'
 import {useNavigate} from "react-router-dom";
-import {MAINPAGE_ROUTE, REPOLIST_ROUTE} from "../../utils/consts";
+import {ADMIN_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REPOLIST_ROUTE} from "../../utils/consts";
 
 const NavBar = () => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
+
     return (
         <nav className='navbar'>
             <div className="navbar-container">
                 <div className="navbar-icon">
-                    <a href="/">
+                    <button onClick={() => navigate(MAINPAGE_ROUTE)}>
                         <img src={LogoSVG} alt=""/>
-                    </a>
+                    </button>
                 </div>
                 <div className="navbar-list">
                     <div onClick={() => {
@@ -26,11 +27,12 @@ const NavBar = () => {
                     <a href="https://github.com/acebackwards" target="_blank">GitHub</a>
                 </div>
                 <div className="navbar-auth">
-                    <a href="/login">
-                        <button>
-                            Log In
-                        </button>
-                    </a>
+                    <button onClick={() => navigate(ADMIN_ROUTE)}>
+                        Admin
+                    </button>
+                    <button onClick={() => navigate(LOGIN_ROUTE)}>
+                        Log In
+                    </button>
                 </div>
             </div>
         </nav>

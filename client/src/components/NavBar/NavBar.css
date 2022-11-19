@@ -22,7 +22,9 @@
     cursor: pointer;
 }
 
-.navbar-icon img {
+.navbar-icon button {
+    background: none;
+    border: none;
     width: 50px;
     fill: #9E77ED;
     padding: 0;
@@ -49,6 +51,7 @@
     align-items: flex-start;
     padding: 0;
 
+    margin-left: 5px;
     cursor: pointer;
     background: #53389E;
     width: 110px;
@@ -60,4 +63,7 @@
 }
 .navbar-auth button:active {
     background: #D6BBFB;
+}
+.navbar-auth button:hover {
+    background: #9E77ED;
 }

@@ -6,15 +6,16 @@ import MainPage from "./pages/MainPage";
 import Repo from "./pages/Repo";
 
 export const privateRoutes = [
+    
+
+]
+
+export const publicRoutes = [
     {
         path: ADMIN_ROUTE,
         Component: <Admin />
     },
 
-
-]
-
-export const publicRoutes = [
     {
         path: REPOLIST_ROUTE,
         Component: <RepoList />
