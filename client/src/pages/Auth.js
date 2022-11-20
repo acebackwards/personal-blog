@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import "../components/Auth/Auth.css";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
-import { NavLink, useLocation } from "react-router-dom";
+import {LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { registration, login } from "../http/userApi";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
-const Auth = () => {
+const Auth = observer(() => {
+  const navigate = useNavigate()
+  const {user} = useContext(Context)
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,13 +18,22 @@ const Auth = () => {
   // let currentUrl = window.location.href
 
   const click = async () => {
-    if (isLogin) {
-      const response = await login()
-    } else {
-      const response = await registration(email, password)
-      console.log(response)
+    try {
+      let data
+      if (isLogin) {
+        data = await login(email, password)
+        localStorage.setItem('token', data.token)
+      } else {
+        data = await registration(name, email, password)
+        localStorage.setItem('token', data.token)
+      }
+      user.setUser(user)
+      user.setIsAuth(true)
+      navigate(MAINPAGE_ROUTE)
+
+    } catch (e) {
+      alert(e.response.data.message)
     }
-    
   }
 
   return (
@@ -42,6 +56,17 @@ const Auth = () => {
           <div className="auth-input-container">
             <form>
               <h2>{isLogin ? "Login" : "Registration"}</h2>
+              {isLogin ? '' :
+                  <div className="user-box">
+                    <input
+                        type="text"
+                        className="auth-input"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <label>Name</label>
+                  </div>
+              }
               <div className="user-box">
                 <input
                   type="text"
@@ -60,15 +85,15 @@ const Auth = () => {
                 />
                 <label>Password</label>
               </div>
-              <button
-              onClick={click}
-              >Confirm</button>
+              <a onClick={click}>
+                Confirm
+              </a>
             </form>
           </div>
         </>
       </div>
     </div>
   );
-};
+});
 
 export default Auth;

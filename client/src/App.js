@@ -1,20 +1,37 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar/NavBar";
+import {observer} from "mobx-react-lite";
+import {Context} from "./index";
+import {check} from "./http/userApi";
 
-function App() {
-  let currentUrl = window.location.href;
+const App = observer(() => {
+    const {user} = useContext(Context)
+    const [loading, setLoading] = useState(true)
 
-  return (
-    <BrowserRouter>
-      {/* {currentUrl.endsWith('login') || currentUrl.endsWith('registration') ? */}
-      {/* <></> : */}
-      <NavBar />
-      {/* } */}
-      <AppRouter />
-    </BrowserRouter>
-  );
-}
+    useEffect(() => {
+        setTimeout(() => {
+            check()
+                .then(data => {
+                    user.setUser(true)
+                    user.setIsAuth(true)
+                })
+                .finally(() => setLoading(false))
+        }, 1000)
+
+    }, [])
+
+    if (loading) {
+        return <div>Loading...</div>
+    } else {
+        return (
+            <BrowserRouter>
+                <NavBar/>
+                <AppRouter/>
+            </BrowserRouter>
+        );
+    }
+});
 
 export default App;
