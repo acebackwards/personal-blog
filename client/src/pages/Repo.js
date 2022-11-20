@@ -3,15 +3,18 @@ import { useLocation } from "react-router-dom";
 import { Context } from "../index";
 
 const Repo = ({ repo }) => {
+
+  const repoItem = {id: 7, url: 'url...', title: 'name', description: 'none', rating: 0, comment: ''}
+
   const location = useLocation();
   const repoId = parseInt(location.pathname.match(/\d+/));
   const { repos } = useContext(Context);
   return (
     <div className="repo-information">
-      <div className="repo-name">Name</div>
-      <div className="repo-description">Description</div>
+      <div className="repo-name">{repoItem.title}</div>
+      <div className="repo-description">{repoItem.description}</div>
       <div className="repo-extra">
-        <a>link</a>
+        <a href={repoItem.url}>GitHub</a>
         <div className="repo-extra-rating">
           <ul>
             <li></li>
@@ -20,7 +23,7 @@ const Repo = ({ repo }) => {
             <li></li>
             <li></li>
           </ul>
-          5
+          {repoItem.rating}
         </div>
       </div>
     </div>

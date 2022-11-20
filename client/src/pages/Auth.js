@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../components/Auth/Auth.css";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 import { NavLink, useLocation } from "react-router-dom";
+import { registration, login } from "../http/userApi";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,16 @@ const Auth = () => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
   // let currentUrl = window.location.href
+
+  const click = async () => {
+    if (isLogin) {
+      const response = await login()
+    } else {
+      const response = await registration(email, password)
+      console.log(response)
+    }
+    
+  }
 
   return (
     <div className="auth-container">
@@ -49,7 +60,9 @@ const Auth = () => {
                 />
                 <label>Password</label>
               </div>
-              <button>Confirm</button>
+              <button
+              onClick={click}
+              >Confirm</button>
             </form>
           </div>
         </>

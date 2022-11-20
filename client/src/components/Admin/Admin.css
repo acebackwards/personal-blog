@@ -13,19 +13,18 @@
     background: linear-gradient(#9E77ED, #243b55);
 
     text-align: center;
-    text-transform: uppercase;
 
     display: flex;
     flex-direction: column;
 
 }
 
-.admin-container h2 {
+.admin-h2 {
     font-weight: 800;
     color: #D6BBFB;
 }
 
-.admin-container button {
+.admin-button {
     margin: 5px 0;
     border: none;
     background: none;
@@ -37,6 +36,6 @@
     color: #D6BBFB;
 }
 
-.admin-container button:hover {
+.admin-button:hover {
     scale: 1.025;
 }

@@ -102,6 +102,17 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.repo-extra a {
+    text-decoration: none;
+    color:#101828;
+
+}
+
+.repo-extra a:hover {
+    color:#9E77ED;
+}
+
 .repo-extra-rating {
     display: flex;
 }
