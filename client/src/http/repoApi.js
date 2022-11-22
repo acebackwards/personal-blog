@@ -6,7 +6,7 @@ export const createRepo = async (title, description, url) => {
 }
 
 export const fetchRepo = async () => {
-    const {data} = await $host.get('http://localhost:5000/api/repo')
+    const {data} = await $host.get('http://localhost:5000/api/repo', {params: {limit: 7}})
     return data
 }
 

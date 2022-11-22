@@ -11,27 +11,27 @@ const App = observer(() => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        setTimeout(() => {
-            check()
-                .then(data => {
-                    user.setUser(true)
-                    user.setIsAuth(true)
-                })
-                .finally(() => setLoading(false))
-        }, 1000)
-
+        check()
+            .then(data => {
+                user.setUser(true)
+                user.setIsAuth(true)
+            })
+            .finally(() => setLoading(false))
+            // .catch((e) => {
+            //     alert(e.message)
+            // })
     }, [])
 
     if (loading) {
         return <div>Loading...</div>
-    } else {
+    }
+
         return (
             <BrowserRouter>
                 <NavBar/>
                 <AppRouter/>
             </BrowserRouter>
         );
-    }
 });
 
 export default App;

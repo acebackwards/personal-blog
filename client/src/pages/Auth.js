@@ -73,7 +73,7 @@ const Auth = observer(() => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label>Login</label>
+                <label>Email</label>
               </div>
               <div className="user-box">
                 <input
