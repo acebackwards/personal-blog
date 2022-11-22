@@ -9,10 +9,16 @@ import {
   MAINPAGE_ROUTE,
   REPOLIST_ROUTE,
 } from "../../utils/consts";
+import {observer} from "mobx-react-lite";
 
-const NavBar = () => {
+const NavBar = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
+
+  const logOut = () => {
+    user.setUser({})
+    user.setIsAuth(false)
+  }
 
   return (
     <nav className="navbar">
@@ -23,31 +29,29 @@ const NavBar = () => {
           </button>
         </div>
         <div className="navbar-list">
-          <div
-            onClick={() => {
-              navigate(MAINPAGE_ROUTE);
-            }}
-          >
+          <div onClick={() => {navigate(MAINPAGE_ROUTE)}}>
             Home
           </div>
-          <div
-            onClick={() => {
-              navigate(REPOLIST_ROUTE);
-            }}
-          >
+          <div onClick={() => {navigate(REPOLIST_ROUTE)}}>
             Repositories
           </div>
           <a href="https://github.com/acebackwards" target="_blank">
             GitHub
           </a>
         </div>
-        <div className="navbar-auth">
-          <button onClick={() => navigate(ADMIN_ROUTE)}>Admin</button>
-          <button onClick={() => navigate(LOGIN_ROUTE)}>Log In</button>
-        </div>
+        {user.isAuth ?
+            <div className="navbar-auth">
+              <button onClick={() => navigate(ADMIN_ROUTE)}>Admin</button>
+              <button onClick={() => logOut()}>Log Out</button>
+            </div>
+            :
+            <div className="navbar-auth">
+              <button onClick={() => navigate(LOGIN_ROUTE)}>Log In</button>
+            </div>
+        }
       </div>
     </nav>
   );
-};
+});
 
 export default NavBar;

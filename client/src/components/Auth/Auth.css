@@ -95,7 +95,8 @@
     font-size: 12px;
 }
 
-.auth-input-container form button {
+.auth-input-container form .auth-confirm {
+    cursor: pointer;
     background: none;
     border: none;
     font-weight: 800;
@@ -114,10 +115,10 @@
     border-radius: 12px;
 }
 
-.auth-input-container form button:hover {
+.auth-input-container form .auth-confirm:hover {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
-.auth-input-container form button:active {
+.auth-input-container form .auth-confirm:active {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }

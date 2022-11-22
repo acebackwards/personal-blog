@@ -15,7 +15,6 @@ const Auth = observer(() => {
 
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  // let currentUrl = window.location.href
 
   const click = async () => {
     try {
@@ -27,7 +26,7 @@ const Auth = observer(() => {
         data = await registration(name, email, password)
         localStorage.setItem('token', data.token)
       }
-      user.setUser(user)
+      user.setUser(data)
       user.setIsAuth(true)
       navigate(MAINPAGE_ROUTE)
 
@@ -85,7 +84,7 @@ const Auth = observer(() => {
                 />
                 <label>Password</label>
               </div>
-              <a onClick={click}>
+              <a className='auth-confirm' onClick={click}>
                 Confirm
               </a>
             </form>
