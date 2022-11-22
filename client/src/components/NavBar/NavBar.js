@@ -41,7 +41,10 @@ const NavBar = observer(() => {
         </div>
         {user.isAuth ?
             <div className="navbar-auth">
-              <button onClick={() => navigate(ADMIN_ROUTE)}>Admin</button>
+              {user.user.role === "ADMIN" ?
+                  <button onClick={() => navigate(ADMIN_ROUTE)}>Admin</button>
+                  : null
+              }
               <button onClick={() => logOut()}>Log Out</button>
             </div>
             :

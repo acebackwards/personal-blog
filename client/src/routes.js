@@ -8,25 +8,30 @@ import RepoPage from "./pages/RepoPage";
 
 export const privateRoutes = [
     {
-        path: ADMIN_ROUTE,
-        Component: <Admin />
-    },
-
-]
-
-export const publicRoutes = [
-    {
         path: REPOLIST_ROUTE,
         Component: <RepoList />
     },
     {
         path: REPOLIST_ROUTE + '/:id',
         Component: <RepoPage />
-    },
+    }
+]
+
+export const publicRoutes = [
     {
         path: MAINPAGE_ROUTE,
         Component: <MainPage />
-    },
+    }
+]
+
+export const adminRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin />
+    }
+]
+
+export const authRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: <Auth />
