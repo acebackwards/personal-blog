@@ -4,6 +4,13 @@ import {adminRoutes, authRoutes, privateRoutes, publicRoutes} from "../routes";
 import { MAINPAGE_ROUTE } from "../utils/consts";
 import { Context } from "../index";
 import {observer} from "mobx-react-lite";
+import jwt_decode from "jwt-decode";
+
+const checkRole = () => {
+    const obj = jwt_decode(localStorage.getItem('token'))
+    // console.log(obj.role)
+    return obj.role
+}
 
 const AppRouter = observer(() => {
   const { user } = useContext(Context);
@@ -12,7 +19,7 @@ const AppRouter = observer(() => {
     <div className="bg-container">
       <div className="main-container">
         <Routes>
-            {user.isAuth && user.user.role === "ADMIN" &&
+            {user.isAuth && checkRole() === "ADMIN" &&
                 adminRoutes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={Component} exact />
                 ))

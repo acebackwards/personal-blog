@@ -21,10 +21,11 @@ const Auth = observer(() => {
       let data
       if (isLogin) {
         data = await login(email, password)
-        localStorage.setItem('token', data.token)
+        // console.log(localStorage.getItem('token'))
+
       } else {
         data = await registration(name, email, password)
-        localStorage.setItem('token', data.token)
+        // console.log(localStorage.getItem('token'))
       }
       user.setUser(data)
       user.setIsAuth(true)

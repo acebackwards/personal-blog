@@ -6,6 +6,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {check} from "./http/userApi";
 
+
 const App = observer(() => {
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)
@@ -15,11 +16,13 @@ const App = observer(() => {
             .then(data => {
                 user.setUser(true)
                 user.setIsAuth(true)
+                // alert('You successfully authorized')
             })
             .finally(() => setLoading(false))
-            // .catch((e) => {
-            //     alert(e.message)
-            // })
+            .catch((e) => {
+                alert(e.message)
+                alert(user.isAuth)
+            })
     }, [])
 
     if (loading) {

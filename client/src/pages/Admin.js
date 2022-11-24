@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../components/Admin/Admin.css";
 import AddRepo from "../components/modals/AddRepo";
+import {observer} from "mobx-react-lite";
 
-const Admin = () => {
+const Admin = observer(() => {
   const [repoVisible, setRepoVisible] = useState(false)
   return (
     <div className="admin-container">
@@ -13,6 +14,6 @@ const Admin = () => {
       {/* <button>Remove REPO</button> */}
     </div>
   );
-};
+});
 
 export default Admin;

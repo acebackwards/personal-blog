@@ -10,14 +10,14 @@ const AddRepo = observer(({ onHide }) => {
     const [description, setDescription] = useState('')
 
     const addNewRepo = () => {
-        createRepo({title: title}, {description: description}, {url: url})
+        createRepo(title, description, url)
             .then(data => {
                 setUrl('')
                 setTitle('')
                 setDescription('')
                 onHide()
             }).catch(e => {
-                alert(e.message)
+                alert(e.data.response.message)
         })
     }
 
