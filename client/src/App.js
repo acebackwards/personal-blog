@@ -19,9 +19,8 @@ const App = observer(() => {
                 // alert('You successfully authorized')
             })
             .finally(() => setLoading(false))
-            .catch((e) => {
-                alert(e.message)
-                alert(user.isAuth)
+            .catch(() => {
+                console.log("Unauthorized")
             })
     }, [])
 
