@@ -10,7 +10,7 @@ function RepoPage () {
     useEffect(() => {
         fetchOneRepo(id)
             .then(data => setRepo(data))
-        console.log(repo)
+        // console.log(repo)
     }, [])
 
     return (
@@ -18,7 +18,7 @@ function RepoPage () {
             <div className="repo-name">{repo.title}</div>
             <div className="repo-description">{repo.description}</div>
             <div className="repo-extra">
-                <a href={'#'}>GitHub</a>
+                <a href={repo.url} target="_blank" rel="noreferrer">GitHub</a>
                 <div className="repo-extra-rating">
                     <ul>
                         <li></li>

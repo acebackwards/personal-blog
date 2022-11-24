@@ -25,15 +25,15 @@ const AddRepo = observer(({ onHide }) => {
     <div className="add-repo-confirm">
       <h1 className="add-repo-h1">Add new repository</h1>
       <div className="add-repo-div">
-        <label>URL</label>
-        <input placeholder='Type the text...' value={url}
-        onChange={e => setUrl(e.target.value)}></input>
+        <label>GitHub URL</label>
+        <input placeholder='Type the URL...' value={url}
+        onChange={e => setUrl(e.target.value)}/>
         <label>Title</label>
-        <input placeholder='Type the text...' value={title}
-               onChange={e => setTitle(e.target.value)}></input>
+        <input placeholder='Type the title...' value={title}
+               onChange={e => setTitle(e.target.value)}/>
         <label>Description</label>
-        <input placeholder='Type the text...' value={description}
-               onChange={e => setDescription(e.target.value)}></input>
+        <input placeholder='Type the description...' value={description}
+               onChange={e => setDescription(e.target.value)}/>
       </div>
       <button className="add-repo-button" onClick={onHide}>Cancel</button>
       <button autoFocus className="add-repo-button" onClick={addNewRepo}>Confirm</button>
