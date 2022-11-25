@@ -19,11 +19,19 @@ const NavBar = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
 
+
   const checkRole = () => {
     const obj = jwt_decode(localStorage.getItem('token'))
     // console.log(obj.role)
     return obj.role
   }
+
+  const checkName = () => {
+    const decodedToken = jwt_decode(localStorage.getItem('token'))
+
+    return decodedToken.name
+  }
+
 
   const logOut = () => {
     user.setUser({})
@@ -51,7 +59,10 @@ const NavBar = observer(() => {
           </a>
         </div>
         {user.isAuth ?
+        <div>Logged: {checkName()}</div> : ''}
+        {user.isAuth ?
             <div className="navbar-auth">
+
               {checkRole() === "ADMIN" ?
                   <button onClick={() => navigate(ADMIN_ROUTE)}>Admin</button>
                   : null
