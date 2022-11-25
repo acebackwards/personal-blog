@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {check} from "./http/userApi";
+import LoaderSVG from "./img/logo.svg"
 
 
 const App = observer(() => {
@@ -25,7 +26,12 @@ const App = observer(() => {
     }, [])
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className='main-loader'>
+            <div className='main-loader-item'>
+                <img src={LoaderSVG} alt=""/>
+                LOADING
+            </div>
+        </div>
     }
 
         return (

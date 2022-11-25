@@ -72,6 +72,7 @@ const Auth = observer(() => {
                   type="text"
                   className="auth-input"
                   value={email}
+                  required="required"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <label>Email</label>
@@ -81,6 +82,7 @@ const Auth = observer(() => {
                   type="password"
                   className="auth-input"
                   value={password}
+                  required="required"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <label>Password</label>
