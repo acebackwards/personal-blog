@@ -1,41 +1,101 @@
-import React from 'react';
-import LogIn from "../components/Auth/LogIn";
-import Registration from "../components/Auth/Registration";
-import '../components/Auth/Auth.css'
+import React, {useContext, useState} from "react";
+import "../components/Auth/Auth.css";
+import {LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { registration, login } from "../http/userApi";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
-const Auth = () => {
+const Auth = observer(() => {
+  const navigate = useNavigate()
+  const {user} = useContext(Context)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    let currentUrl = window.location.href
+  const location = useLocation();
+  const isLogin = location.pathname === LOGIN_ROUTE;
 
-    return (
-        <div className='auth-container'>
-            <div className='auth-method'>
-                {currentUrl.endsWith('login') ?
-                    <>
-                        <div className="choose-method">
-                            <h3>No account yet?</h3>
-                            <a href="/registration">Sign Up</a>
-                        </div>
-                        <div className="auth-input-container">
-                            <LogIn />
-                        </div>
-                    </>
-                     :
-                currentUrl.endsWith('registration') ?
-                    <>
-                        <div className="choose-method">
-                            <h3>Already have account?</h3>
-                            <a href="/login">Log In</a>
-                        </div>
-                        <div className="auth-input-container">
-                            <Registration />
-                        </div>
-                    </>  : console.error('error')
-                }
+  const click = async () => {
+    try {
+      let data
+      if (isLogin) {
+        data = await login(email, password)
+        // console.log(localStorage.getItem('token'))
 
-            </div>
-        </div>
-    );
-};
+      } else {
+        data = await registration(name, email, password)
+        // console.log(localStorage.getItem('token'))
+      }
+      user.setUser(data)
+      user.setIsAuth(true)
+      navigate(MAINPAGE_ROUTE)
+
+    } catch (e) {
+      alert(e.response.data.message)
+    }
+  }
+
+  return (
+    <div className="auth-container">
+      <div className="auth-method">
+        <>
+          <div className="choose-method">
+            {isLogin ? (
+              <>
+                <h3>No account yet?</h3>
+                <NavLink to={REGISTRATION_ROUTE}>Sign Up</NavLink>
+              </>
+            ) : (
+              <>
+                <h3>Already have account?</h3>
+                <NavLink to={LOGIN_ROUTE}>Log In</NavLink>
+              </>
+            )}
+          </div>
+          <div className="auth-input-container">
+            <form>
+              <h2>{isLogin ? "Login" : "Registration"}</h2>
+              {isLogin ? '' :
+                  <div className="user-box">
+                    <input
+                        type="text"
+                        className="auth-input"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <label>Name</label>
+                  </div>
+              }
+              <div className="user-box">
+                <input
+                  type="text"
+                  className="auth-input"
+                  value={email}
+                  required="required"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <label>Email</label>
+              </div>
+              <div className="user-box">
+                <input
+                  type="password"
+                  className="auth-input"
+                  value={password}
+                  required="required"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <label>Password</label>
+              </div>
+              <a className='auth-confirm' onClick={click}>
+                Confirm
+              </a>
+            </form>
+          </div>
+        </>
+      </div>
+    </div>
+  );
+});
 
 export default Auth;

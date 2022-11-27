@@ -4,19 +4,16 @@ import RepoList from "./pages/RepoList";
 import Auth from "./pages/Auth";
 import MainPage from "./pages/MainPage";
 import Repo from "./pages/Repo";
+import RepoPage from "./pages/RepoPage";
 
 export const privateRoutes = [
-    {
-        path: ADMIN_ROUTE,
-        Component: <Admin />
-    },
     {
         path: REPOLIST_ROUTE,
         Component: <RepoList />
     },
     {
         path: REPOLIST_ROUTE + '/:id',
-        Component: <Repo />
+        Component: <RepoPage />
     }
 ]
 
@@ -24,6 +21,13 @@ export const publicRoutes = [
     {
         path: MAINPAGE_ROUTE,
         Component: <MainPage />
+    }
+]
+
+export const adminRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin />
     }
 ]
 

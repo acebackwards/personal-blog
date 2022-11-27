@@ -39,13 +39,19 @@
 }
 .choose-method h3 {
     color: #fff;
+    font-size: 1.5rem;
 }
 
-
+.auth-input-container {
+    width: 80%;
+}
 
 .auth-input-container h2 {
     text-align: center;
     color: #fff;
+    font-size: 1.4rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .auth-input-container form {
@@ -89,7 +95,10 @@
     font-size: 12px;
 }
 
-.auth-input-container form a {
+.auth-input-container form .auth-confirm {
+    cursor: pointer;
+    background: none;
+    border: none;
     font-weight: 800;
     position: relative;
     display: flex;
@@ -103,96 +112,13 @@
     transition: .25s;
     letter-spacing: 4px;
     box-sizing: border-box;
-    /* border: 1px solid #f12aff; */
     border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-.auth-input-container form a:hover {
+.auth-input-container form .auth-confirm:hover {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
-.auth-input-container form a:active {
+.auth-input-container form .auth-confirm:active {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
-
-/* .auth-input-container a span {
-    position: absolute;
-    display: block;
-} */
-
-/* .auth-input-container a span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #fff);
-    animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-    0% {
-        left: -100%;
-    }    
-    50%, 100% {
-        left: 100%;
-    }
-}
-
-.auth-input-container a span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, #fff);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .25s;
-}
-
-@keyframes btn-anim2 {
-    0% {
-        top: -100%;
-    }    
-    50%, 100% {
-        top: 100%;
-    } 
-}
-
-.auth-input-container a span:nth-child(3) {
-    top: 95%;
-    right: 100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, #fff);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .5s;
-}
-
-@keyframes btn-anim3 {
-    0% {
-        right: -100%;
-    }    
-    50%, 100% {
-        right: 100%;
-    } 
-}
-
-
-.auth-input-container a span:nth-child(4) {
-    top: 100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #fff);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s;
-}
-
-@keyframes btn-anim4 {
-    0% {
-        top: 100%;
-    }    
-    50%, 100% {
-        top: -100%;
-    } 
-} */

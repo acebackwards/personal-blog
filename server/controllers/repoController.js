@@ -11,6 +11,16 @@ class RepoController {
         }
     }
 
+    async delete(req, res) {
+        try {
+            const {id} = req.body
+            const repo = await Repo.destroy({where: {id}})
+            return res.json(repo)
+        } catch (e) {
+            return res.json({message: 'error'})
+        }
+    }
+
     async getAll(req, res) {
         let {limit, page} = req.query
 
