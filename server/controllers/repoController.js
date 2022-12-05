@@ -1,11 +1,12 @@
-const {Repo} = require('../models/models')
+// const {Repo} = require('../models/models')
+const db = require('../db')
 
 class RepoController {
     async create(req, res) {
         try {
             const {url, title, description} = req.body
-            const repo = await Repo.create({url, title, description})
-            return res.json(repo)
+            const repo = await db.query(`INSERT INTO repos (url, title, description) VALUES ($1, $2, $3)`, [url, title, description])
+            return res.json(repo.rows[0])
         } catch (e) {
             return res.json({message: 'error'})
         }
@@ -14,8 +15,8 @@ class RepoController {
     async delete(req, res) {
         try {
             const {id} = req.body
-            const repo = await Repo.destroy({where: {id}})
-            return res.json(repo)
+            const repo = await db.query(`DELETE FROM repos WHERE id = $1`, [id])
+            return res.json(repo.rows[0])
         } catch (e) {
             return res.json({message: 'error'})
         }
@@ -24,19 +25,20 @@ class RepoController {
     async getAll(req, res) {
         let {limit, page} = req.query
 
+        // TODO: make pagination
         page = page || 1
         limit = limit || 5
         let offset = page * limit - limit
 
-        let repo = await Repo.findAndCountAll({limit, offset})
-        return res.json(repo)
+        const repos = await db.query(`SELECT * FROM repos`)
+        res.json(repos.rows)
     }
 
     async getOne(req, res) {
         // return res.json({message: 'getOne'})
-        const {id} = req.params
-        const repo = await Repo.findOne({where: {id}})
-        return res.json(repo)
+        const id = req.params.id
+        const repo = await db.query(`SELECT * FROM repos WHERE id = $1`, [id])
+        return res.json(repo.rows[0])
     }
 
 }

@@ -1,7 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const sequelize = require('./database')
-const models = require('./models/models')
 const cors = require('cors')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
@@ -18,17 +16,19 @@ app.use(errorHandler)
 
 
 // app.get('/', (req, res) => {
-//     res.status(200).json({message: 'Success!'})
+//     res.send("It's working")
 // })
 
-const start = async () => {
-    try {
-        await sequelize.authenticate()
-        await sequelize.sync()
-        app.listen(PORT, () => {console.log('Server started successfully!')})
-    } catch (e) {
-        console.log(e)
-    }
-}
+app.listen(PORT, () => console.log(`server started on PORT ${PORT}`))
 
-start()
+// const start = async () => {
+//     try {
+//         await sequelize.authenticate()
+//         await sequelize.sync()
+//         app.listen(PORT, () => {console.log('Server started successfully!')})
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
+//
+// start()

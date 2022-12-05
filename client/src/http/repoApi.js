@@ -41,9 +41,9 @@ export const deleteRepo = async (id) => {
             // console.log("AXIOS ERROR: ", err);
         })
 }
-
+// {params: {limit: 5}}
 export const fetchRepo = async () => {
-    const {data} = await $host.get('http://localhost:5000/api/repo', {params: {limit: 5}})
+    const {data} = await $host.get('http://localhost:5000/api/repo')
     return data
 }
 

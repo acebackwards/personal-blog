@@ -1,7 +1,8 @@
-const {User} = require('../models/models')
+// const {User} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const db = require('../db')
 
 const generateToken = (id, email, role, name) => {
     return jwt.sign(
@@ -13,33 +14,33 @@ const generateToken = (id, email, role, name) => {
 
 class UserController {
     async registration(req, res, next) {
-        const {name, email, password, role} = req.body
+        const {name, email, password} = req.body
         if ( !name || !email || !password) {
             return next(ApiError.badRequest('Некорректные данные'))
         }
-        const dataCheck = await User.findOne({where: {email}})
-        if (dataCheck) {
+        const dataCheck = await db.query(`SELECT FROM users WHERE email = $1`, [email]) // find one
+        if (dataCheck.rows[0]) {
             return next(ApiError.badRequest('Пользователь уже зарегистрирован'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({name, email, role, password: hashPassword})
-        const token = generateToken(user.id, user.email, user.role, user.name)
+        const user = await db.query(`INSERT INTO users (name, email, password) values ($1, $2, $3) RETURNING *`, [name, email, hashPassword])
+        const token = generateToken(user.rows[0].id, user.rows[0].email, user.rows[0].role, user.rows[0].name)
         return res.json({token})
     }
 
     async login(req, res, next) {
         const {email, password} = req.body
-        const user = await User.findOne({where: {email}})
+        const user = await db.query(`SELECT * FROM users WHERE email = $1`, [email]) // find one
 
-        if (!user) {
+        if (!user.rows[0]) {
             return next(ApiError.badRequest('Пользователь не найден'))
         }
-        let comparePassword = bcrypt.compareSync(password, user.password)
+        let comparePassword = bcrypt.compareSync(password, user.rows[0].password)
         if (!comparePassword) {
             return next(ApiError.badRequest('Неверный пароль'))
         }
 
-        const token = generateToken(user.id, user.email, user.role, user.name)
+        const token = generateToken(user.rows[0].id, user.rows[0].email, user.rows[0].role, user.rows[0].name)
         return res.json({token})
     }
 

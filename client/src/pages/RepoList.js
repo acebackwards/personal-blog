@@ -11,9 +11,10 @@ const RepoList = observer(() => {
   const { repos } = useContext(Context);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => 
+  {
     fetchRepo()
-        .then(data => repos.setRepos(data.rows))
+        .then(data => repos.setRepos(data))
   }, [])
 
   return (
