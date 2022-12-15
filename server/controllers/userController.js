@@ -16,11 +16,11 @@ class UserController {
     async registration(req, res, next) {
         const {name, email, password} = req.body
         if ( !name || !email || !password) {
-            return next(ApiError.badRequest('Некорректные данные'))
+            return next(ApiError.badRequest('Incorrect data'))
         }
         const dataCheck = await db.query(`SELECT FROM users WHERE email = $1`, [email]) // find one
         if (dataCheck.rows[0]) {
-            return next(ApiError.badRequest('Пользователь уже зарегистрирован'))
+            return next(ApiError.badRequest('Account is already registered'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await db.query(`INSERT INTO users (name, email, password) values ($1, $2, $3) RETURNING *`, [name, email, hashPassword])

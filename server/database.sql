@@ -19,14 +19,18 @@ create TABLE ratings(
     id SERIAL PRIMARY KEY,
     rate INTEGER,
     repo_id INTEGER,
-    parent_id INTEGER,
+    user_id INTEGER,
     FOREIGN KEY (repo_id) REFERENCES repos (id),
-    FOREIGN KEY (parent_id) REFERENCES ratings (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 create TABLE comments(
     id SERIAL PRIMARY KEY,
     text VARCHAR(255),
     user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    repo_id INTEGER,
+    parent_id INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (repo_id) REFERENCES repos (id),
+    FOREIGN KEY (parent_id) REFERENCES comments (id)
 );
