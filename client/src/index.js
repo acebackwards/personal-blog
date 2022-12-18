@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import UserStore from "./store/UserStore";
 import RepoStore from "./store/RepoStore";
+import CommentStore from "./store/CommentStore";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Context = createContext(null);
@@ -15,6 +16,7 @@ root.render(
       value={{
         user: new UserStore(),
         repos: new RepoStore(),
+        comments: new CommentStore(),
       }}
     >
       <App />

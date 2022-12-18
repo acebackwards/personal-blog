@@ -15,8 +15,10 @@ class RepoController {
     async delete(req, res) {
         try {
             const {id} = req.body
+            const delAnswer = await db.query(`DELETE FROM comments WHERE repo_id = $1 and parent_id <> 0`, [id])
+            const delComment = await db.query(`DELETE FROM comments WHERE repo_id = $1`, [id])
+            const deleteRating = await db.query(`DELETE FROM ratings WHERE repo_id = $1`, [id])
             const repo = await db.query(`DELETE FROM repos WHERE id = $1`, [id])
-            return res.json(repo.rows[0])
         } catch (e) {
             return res.json({message: 'error'})
         }
@@ -30,7 +32,7 @@ class RepoController {
         limit = limit || 5
         let offset = page * limit - limit
 
-        const repos = await db.query(`SELECT * FROM repos`)
+        const repos = await db.query(`SELECT * FROM repos ORDER BY id`)
         res.json(repos.rows)
     }
 

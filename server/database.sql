@@ -26,6 +26,7 @@ create TABLE ratings(
 
 create TABLE comments(
     id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
     text VARCHAR(255),
     user_id INTEGER,
     repo_id INTEGER,

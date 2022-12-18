@@ -5,31 +5,39 @@ class RatingController {
     async rate(req, res) {
         try {
             const {rate, repo_id, user_id} = req.body
-            const existRating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1 AND user_id = $2`, [repo_id, user_id])
+            
+            const existRating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1 and user_id = $2`, [repo_id, user_id])
 
-            if (existRating && existRating.rows[0].rate != rate) {
-                const updateRating = await db.query(`UPDATE ratings SET rate = $1 WHERE repo_id = $2 and user_id = $3 RETURNING *`, [rate, repo_id, user_id])
-                return res.json(updateRating.rows)
-            } else if (existRating && existRating.rows[0].rate == rate) {
-                const deleteRating = await db.query(`DELETE FROM ratings WHERE repo_id = $1 and user_id = $2 RETURNING *`, [repo_id, user_id])
-                return res.json(deleteRating.rows)
-            } else {
-                const rating = await db.query(`INSERT INTO ratings (rate, repo_id, user_id) VALUES ($1, $2, $3) RETURNING *`, [rate, repo_id, user_id])            
-                return res.json(rating.rows[0])
+            if (existRating.rows[0] == undefined) {
+                // console.log('insert')
+                const rating = await db.query(`INSERT INTO ratings (rate, repo_id, user_id) VALUES ($1, $2, $3)`, [rate, repo_id, user_id])
+            } else if (existRating.rows[0].rate == rate) {
+                // console.log('delete')
+                const deleteRating = await db.query(`DELETE FROM ratings WHERE repo_id = $1 and user_id = $2`, [repo_id, user_id])
+            } else if (existRating.rows[0].rate != rate) {                
+                // console.log('update')
+                const updateRating = await db.query(`UPDATE ratings SET rate = $1 WHERE repo_id = $2 and user_id = $3`, [rate, repo_id, user_id])            
             }
+            const updateRepoRating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1`, [repo_id])
 
-            return null
-            // // return res.json(existRating.rows)
-            // return res.json(rating.rows[0].rate)
+            let step = 0
+            let rating = 0
+            updateRepoRating.rows.map(rate => {
+
+                step++
+                rating += rate.rate
+            })
+            rating = Math.floor(rating / step)
+            const newRating = await db.query(`UPDATE repos SET rating = $1 WHERE id = $2`, [rating, repo_id])
         } catch (e) {
-            // return next(ApiError.badRequest('Something went wrong...'))
             return res.json({message: 'something went wrong...'})
         }
     }
 
     async getAll(req, res) {
         try {
-            const rating = await db.query(`SELECT * FROM ratings`)
+            const {repo_id} = req.body
+            const rating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1`, [repo_id])
             
             return res.json(rating.rows)
         } catch (e) {

@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from "react";
 import { Context } from "../../index";
 import "./NavBar.css";
 import LogoSVG from "../../img/logo.svg";
+import { checkRole, checkName } from "../../utils/check";
 import { useNavigate } from "react-router-dom";
 import {
   ADMIN_ROUTE,
@@ -10,8 +11,8 @@ import {
   REPOLIST_ROUTE,
 } from "../../utils/consts";
 import {observer} from "mobx-react-lite";
-import {check} from "../../http/userApi";
-import jwt_decode from "jwt-decode";
+// import {check} from "../../http/userApi";
+// import jwt_decode from "jwt-decode";
 
 
 
@@ -20,17 +21,17 @@ const NavBar = observer(() => {
   const navigate = useNavigate();
 
 
-  const checkRole = () => {
-    const obj = jwt_decode(localStorage.getItem('token'))
-    // console.log(obj.role)
-    return obj.role
-  }
+  // const checkRole = () => {
+  //   const obj = jwt_decode(localStorage.getItem('token'))
+  //   // console.log(obj.role)
+  //   return obj.role
+  // }
 
-  const checkName = () => {
-    const decodedToken = jwt_decode(localStorage.getItem('token'))
+  // const checkName = () => {
+  //   const decodedToken = jwt_decode(localStorage.getItem('token'))
 
-    return decodedToken.name
-  }
+  //   return decodedToken.name
+  // }
 
 
   const logOut = () => {
