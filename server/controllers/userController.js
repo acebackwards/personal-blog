@@ -20,7 +20,11 @@ class UserController {
         }
         const dataCheck = await db.query(`SELECT FROM users WHERE email = $1`, [email]) // find one
         if (dataCheck.rows[0]) {
-            return next(ApiError.badRequest('Account is already registered'))
+            return next(ApiError.badRequest('Email is already used'))
+        }
+        const nameCheck = await db.query(`SELECT FROM users WHERE name = $1`, [name]) // find one
+        if (nameCheck.rows[0]) {
+            return next(ApiError.badRequest('Name is already used'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await db.query(`INSERT INTO users (name, email, password) values ($1, $2, $3) RETURNING *`, [name, email, hashPassword])
@@ -29,8 +33,8 @@ class UserController {
     }
 
     async login(req, res, next) {
-        const {email, password} = req.body
-        const user = await db.query(`SELECT * FROM users WHERE email = $1`, [email]) // find one
+        const {name, password} = req.body
+        const user = await db.query(`SELECT * FROM users WHERE name = $1`, [name]) // find one
 
         if (!user.rows[0]) {
             return next(ApiError.badRequest('Пользователь не найден'))
