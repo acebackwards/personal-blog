@@ -20,7 +20,7 @@ const Auth = observer(() => {
     try {
       let data
       if (isLogin) {
-        data = await login(email, password)
+        data = await login(name, password)
         // console.log(localStorage.getItem('token'))
 
       } else {
@@ -56,7 +56,6 @@ const Auth = observer(() => {
           <div className="auth-input-container">
             <form>
               <h2>{isLogin ? "Login" : "Registration"}</h2>
-              {isLogin ? '' :
                   <div className="user-box">
                     <input
                         type="text"
@@ -66,17 +65,18 @@ const Auth = observer(() => {
                     />
                     <label>Name</label>
                   </div>
-              }
-              <div className="user-box">
-                <input
-                  type="text"
-                  className="auth-input"
-                  value={email}
-                  required="required"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <label>Email</label>
-              </div>
+                  {isLogin ? '' :
+                    <div className="user-box">
+                      <input
+                        type="text"
+                        className="auth-input"
+                        value={email}
+                        required="required"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <label>Email</label>
+                    </div>
+                  }
               <div className="user-box">
                 <input
                   type="password"
