@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import './AddRepo.css'
 import {createRepo} from "../../http/repoApi";
 import {observer} from "mobx-react-lite";
+import { Context } from "../../index";
+import { checkName } from "../../utils/check";
 
 const AddRepo = observer(({ onHide }) => {
 
+    const name = checkName()
     const [url, setUrl] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     const addNewRepo = () => {
-        createRepo(title, description, url)
+        createRepo(title, description, url, name)
             .then(data => {
                 setUrl('')
                 setTitle('')
