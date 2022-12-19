@@ -10,7 +10,7 @@ export const setRating = async (rate, repo_id, user_id) => {
         }
       };
 
-      axios.post('http://localhost:5000/api/rating/rate', {rate, repo_id, user_id}, axiosConfig)
+      axios.post('http://193.168.49.65:5000/api/rating/rate', {rate, repo_id, user_id}, axiosConfig)
       .then((res) => {
           alert('Rated')
       })

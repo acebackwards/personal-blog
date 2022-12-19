@@ -12,7 +12,7 @@ export const createRepo = async (title, description, url) => {
         }
       };
 
-      axios.post('http://localhost:5000/api/repo/create', {title, description, url}, axiosConfig)
+      axios.post('http://193.168.49.65:5000/api/repo/create', {title, description, url}, axiosConfig)
     //   .then((res) => {
     //     // console.log("RESPONSE RECEIVED: ", res);
     //       alert('Repo has successfully created')
@@ -31,7 +31,7 @@ export const deleteRepo = async (id) => {
         }
     };
 
-    axios.post('http://localhost:5000/api/repo/delete', {id}, axiosConfig)
+    axios.post('http://193.168.49.65:5000/api/repo/delete', {id}, axiosConfig)
         // .then((res) => {
         //     // console.log("RESPONSE RECEIVED: ", res);
         //     alert('Repo has successfully removed')
@@ -43,11 +43,11 @@ export const deleteRepo = async (id) => {
 }
 // {params: {limit: 5}}
 export const fetchRepo = async () => {
-    const {data} = await $host.get('http://localhost:5000/api/repo')
+    const {data} = await $host.get('http://193.168.49.65:5000/api/repo')
     return data
 }
 
 export const fetchOneRepo = async (id) => {
-    const {data} = await $host.get('http://localhost:5000/api/repo/' + id)
+    const {data} = await $host.get('http://193.168.49.65:5000/api/repo/' + id)
     return data
 }

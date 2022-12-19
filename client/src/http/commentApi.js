@@ -10,7 +10,7 @@ export const createComment = async (name, text, user_id, repo_id, parent_id) => 
         }
       };
 
-      axios.post('http://localhost:5000/api/comment/create', {name, text, user_id, repo_id, parent_id}, axiosConfig)
+      axios.post('http://193.168.49.65:5000/api/comment/create', {name, text, user_id, repo_id, parent_id}, axiosConfig)
     //   .then((res) => {
     //       alert('Comment has successfully created')
     //   })
@@ -26,7 +26,7 @@ export const deleteComment = async (id, user_id, role) => {
         }
     };
 
-    axios.post('http://localhost:5000/api/comment/delete', {id, user_id, role}, axiosConfig)
+    axios.post('http://193.168.49.65:5000/api/comment/delete', {id, user_id, role}, axiosConfig)
         // .then((res) => {
         //     alert('Repo has successfully removed')
         // })
@@ -35,6 +35,6 @@ export const deleteComment = async (id, user_id, role) => {
         })
 }
 export const fetchComment = async (id) => {
-    const {data} = await $host.get('http://localhost:5000/api/comment/' + id)
+    const {data} = await $host.get('http://193.168.49.65:5000/api/comment/' + id)
     return data
 }
