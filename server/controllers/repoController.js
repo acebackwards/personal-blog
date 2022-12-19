@@ -5,7 +5,7 @@ class RepoController {
     async create(req, res) {
         try {
             const {url, title, description, name} = req.body
-            const repo = await db.query(`INSERT INTO repos (url, title, description, author) VALUES ($1, $2, $3)`, [url, title, description, name])
+            const repo = await db.query(`INSERT INTO repos (url, title, description, author) VALUES ($1, $2, $3, $4)`, [url, title, description, name])
             return res.json(repo.rows[0])
         } catch (e) {
             return res.json({message: 'error'})
