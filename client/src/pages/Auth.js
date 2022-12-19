@@ -61,7 +61,7 @@ const Auth = observer(() => {
                         type="text"
                         className="auth-input"
                         value={name}
-                        required="required"
+                        // required="required"
                         onChange={(e) => setName(e.target.value)}
                     />
                     <label>Name</label>
