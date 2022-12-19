@@ -2,7 +2,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(#9E77ED, #243b55);
 }
 .main-container {
@@ -14,6 +14,7 @@
     height: 100vh;
     transform: translate(-50%);
 }
+
 .main-information {
     display: flex;
     flex-direction: column;
@@ -97,6 +98,9 @@
 .repo-name {
     font-size: 2rem;
     font-weight: 800;
+}
+.repo-author {
+    font-size: 0.9rem;
 }
 .repo-description {
     font-style: italic;
@@ -311,3 +315,12 @@
   .repo-create-comment-button:active {
     background: #D6D6D6;
   }
+
+
+  
+@media (max-width: 1400px) {
+    .main-container {
+        /* background: #000; */
+        width: 100%;
+    }
+}

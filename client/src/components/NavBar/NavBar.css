@@ -1,6 +1,6 @@
 .navbar {
     width: 100%;
-    height: max-content;
+    height: 50px;
     padding: 0.5rem 0;
     display: flex;
     align-items: center;
@@ -66,4 +66,36 @@
 }
 .navbar-auth button:hover {
     background: #9E77ED;
+}
+
+@media (max-width: 1400px) {
+    .navbar-container {
+        width: 100%;
+    }
+    .navbar-user {
+        display: none;
+    }
+}
+
+@media (max-width: 720px) {
+
+    .navbar-icon button{
+        width: 25px;
+        height: 25px;
+    }
+    .navbar-container {
+        font-size: 0.7rem;
+    }
+    .navbar-auth {
+        display: flex;
+        /* flex-direction: row; */
+
+    }
+    .navbar-auth button {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+        font-size: 0.3rem;
+        border-radius: 50%;
+    }
 }

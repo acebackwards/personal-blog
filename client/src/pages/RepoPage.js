@@ -38,7 +38,7 @@ const RepoPage = observer(() => {
             <AddComment onHide={() => {setCreateComment(false)}} parent={null}/> : null}
             <div className="repo-information">
                 <div className="repo-name">{repo.title}</div>
-                <div className="repo-description">Created by {repo.author}</div>
+                <div className="repo-author">"Created by {repo.author}"</div>
                 <div className="repo-description">{repo.description}</div>
                 <div className="repo-extra">
                     <a href={repo.url} target="_blank" rel="noreferrer">GitHub</a>

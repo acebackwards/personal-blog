@@ -60,7 +60,7 @@ const NavBar = observer(() => {
           </a>
         </div>
         {user.isAuth ?
-        <div>Logged: {checkName()}</div> : ''}
+        <div className="navbar-user">Logged: {checkName()}</div> : ''}
         {user.isAuth ?
             <div className="navbar-auth">
 
