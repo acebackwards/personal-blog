@@ -3,7 +3,7 @@ import { $host } from "./index";
 
 // TODO: create func "editRepo" with changing info
 
-export const createRepo = async (title, description, url) => {
+export const createRepo = async (title, description, url, name) => {
 
     console.log(localStorage.getItem('token'))
       let axiosConfig = {
@@ -12,7 +12,7 @@ export const createRepo = async (title, description, url) => {
         }
       };
 
-      axios.post('http://193.168.49.65:5000/api/repo/create', {title, description, url}, axiosConfig)
+      axios.post('http://193.168.49.65:5000/api/repo/create', {title, description, url, name}, axiosConfig)
     //   .then((res) => {
     //     // console.log("RESPONSE RECEIVED: ", res);
     //       alert('Repo has successfully created')
