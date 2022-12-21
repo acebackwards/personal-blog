@@ -1,64 +1,68 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
 import { deleteComment, fetchComment } from '../http/commentApi'
 import { Context } from '../index'
 import { observer } from 'mobx-react-lite'
+import AddComment from './modals/AddComment'
 
 
 const CommentContainer = observer(({repo_id}) => {
 
     const { comments } = useContext(Context)
-    const commentList = []
-    const sortedList = []
+    const [createComment, setCreateComment] = useState(false)
+    let commentList = []
+    const [sortedList, setSortedList] = useState([]);
+    const [count, setCount] = useState(true)
+    const [loaded, setLoaded] = useState(false) 
 
-    const removeComment = (id, user_id, role) => {
-        deleteComment(id, user_id, role)
-        // .then()
-      }
-
-    
-    function sortingComments() {
-        // обнуление массивов при ререндере комментов 
+    useEffect(() => {
+        setSortedList([])
         commentList.length = 0
-        sortedList.length = 0
         
         fetchComment(repo_id)
-        .then(data => {comments.setComments(data)
+        .then(data => {
+            commentList = [...data]
+            console.log(data)
         })
-
-        // проходка по всем комментам из бд и запись в массив
-        comments.comments.map(comment => {
-                commentList.push(comment)
-        })
-
-        // сортировка реплаев к пэрентам
-        for (let i = 0; i < commentList.length; i++) {
-            if (!commentList[i].parent_id) {
-                sortedList.push(commentList[i])
-                for (let j = i + 1; j < commentList.length; j++) {
-                    if (commentList[i].id === commentList[j].parent_id) {
-                        sortedList.push(commentList[j])
+        .then(() => {
+            // сортировка реплаев к пэрентам
+            for (let i = 0; i < commentList.length; i++) {
+                if (!commentList[i].parent_id) {
+                    setSortedList(prev => [...prev, commentList[i]])
+                    for (let j = i + 1; j < commentList.length; j++) {
+                        if (commentList[i].id === commentList[j].parent_id) {
+                            setSortedList(prev => [...prev, commentList[j]])
+                        }
                     }
                 }
             }
-        }
-        console.log(sortedList)
-    }
+            console.log(sortedList)
+        })
+        .finally(() => setLoaded(true))                
+    }, [count])
 
 
-    sortingComments()
-    
-    const commentMapping = sortedList.map((comment) => {
+    if (!loaded) {
         return (
-            <CommentItem key={comment.id} comment={comment}/>
+            <button>Loading...</button>
         )
-    })
-
-  return (
-    <>
-        {commentMapping}
-    </>
-  )
+    }     
+    else {
+        console.log(sortedList)
+        const commentMapping = sortedList.map((comment) => {
+            return (
+                <CommentItem key={comment.id} comment={comment} setCount={setCount}/>
+            )
+        })
+    return (
+        <>
+        {createComment ? 
+            <AddComment onHide={() => {setCreateComment(false)}} parent={null} setCount={setCount}/> : null}
+            
+        <button className="repo-item__create" onClick={() => setCreateComment(prev => !prev)}>Create comment</button>
+            {commentMapping}
+        </>
+    )}
 })
 
 export default CommentContainer

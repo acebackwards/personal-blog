@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { REPOLIST_ROUTE } from '../utils/consts'
 import { observer } from 'mobx-react-lite'
 
-const CommentItem = observer(({comment}) => {
+const CommentItem = observer(({comment, setCount}) => {
 
   const [createComment, setCreateComment] = useState(false)
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ const CommentItem = observer(({comment}) => {
 
   const removeComment = () => {
     deleteComment(comment.id, user_id, role)
-    // .then()
+    .then(() => setTimeout(() => setCount(prev => !prev), 1000))
   }
 
 
@@ -27,7 +27,7 @@ const CommentItem = observer(({comment}) => {
   return (
     <>
       {createComment ? 
-            <AddComment onHide={() => setCreateComment(false)} parent={comment.id}/> : null}
+            <AddComment onHide={() => setCreateComment(false)} parent={comment.id} setCount={setCount}/> : null}
       {comment.parent_id ? 
       <div className={`repo-answer-item ${comment.id}`}>
           <div className="repo-item__name">

@@ -32,8 +32,6 @@ const RepoPage = observer(() => {
     return (
         
         <div className='repo-container'>
-            {createComment ? 
-            <AddComment onHide={() => {setCreateComment(false)}} parent={null}/> : null}
             <div className="repo-information">
                 <div className="repo-name">{repo.title}</div>
                 <div className="repo-author">"Created by {repo.author}"</div>
@@ -54,7 +52,6 @@ const RepoPage = observer(() => {
                 </div>
             </div>
             <div className="repo-comment">
-                <button className="repo-item__create" onClick={() => setCreateComment(prev => !prev)}>Create comment</button>
                 <CommentContainer repo_id={id}/>
             </div>
         </div>

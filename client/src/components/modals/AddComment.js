@@ -4,11 +4,10 @@ import { createComment } from '../../http/commentApi'
 import jwt_decode from "jwt-decode";
 import { observer } from 'mobx-react-lite';
 
-const AddComment = observer(({onHide, parent, sortingComments}) => {
+const AddComment = observer(({onHide, parent, setCount}) => {
     const [text, setText] = useState('')
     const {id} = useParams()
     const repo_id = id
-    // const parent_id = 0
 
     const checkId = () => {
         const obj = jwt_decode(localStorage.getItem('token'))
@@ -23,16 +22,17 @@ const AddComment = observer(({onHide, parent, sortingComments}) => {
     const name = checkName()
 
     const addNewComment = () => {
-        createComment(name, text, user_id, repo_id, parent ? parent : null)
-        .then(data => {
-            setText('')
-            onHide()
-
-            console.log(sortingComments())
-            sortingComments()
-        }).catch(e => {
-            alert(e.data.response.message)
-        })
+        if (text) {
+            createComment(name, text, user_id, repo_id, parent ? parent : null)
+            .then(data => {
+                setText('')
+                onHide()
+            })
+            .then(() => setTimeout(() => setCount(prev => !prev), 1000))
+            .catch(e => {
+                alert(e.data.response.message)
+            })
+        }
     }
     return (
     <div className="repo-create-comment">
