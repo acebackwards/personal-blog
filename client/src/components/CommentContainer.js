@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import CommentItem from './CommentItem'
 import { deleteComment, fetchComment } from '../http/commentApi'
 import { Context } from '../index'
+import { observer } from 'mobx-react-lite'
 
 
-export default function CommentContainer({repo_id}) {
+const CommentContainer = observer(({repo_id}) => {
 
     const { comments } = useContext(Context)
     const commentList = []
@@ -15,6 +16,7 @@ export default function CommentContainer({repo_id}) {
         // .then()
       }
 
+    
     function sortingComments() {
         // обнуление массивов при ререндере комментов 
         commentList.length = 0
@@ -43,11 +45,12 @@ export default function CommentContainer({repo_id}) {
         console.log(sortedList)
     }
 
+
     sortingComments()
+    
     const commentMapping = sortedList.map((comment) => {
-        // await sortingComments()
         return (
-            <CommentItem key={comment.id} comment={comment} sortingComments={sortingComments}/>
+            <CommentItem key={comment.id} comment={comment}/>
         )
     })
 
@@ -56,4 +59,6 @@ export default function CommentContainer({repo_id}) {
         {commentMapping}
     </>
   )
-}
+})
+
+export default CommentContainer

@@ -5,8 +5,9 @@ import { checkId, checkName, checkRole } from '../utils/check'
 import { deleteComment } from '../http/commentApi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { REPOLIST_ROUTE } from '../utils/consts'
+import { observer } from 'mobx-react-lite'
 
-const CommentItem = ({comment}) => {
+const CommentItem = observer(({comment}) => {
 
   const [createComment, setCreateComment] = useState(false)
   const navigate = useNavigate()
@@ -60,6 +61,6 @@ const CommentItem = ({comment}) => {
       </div>}
     </>
   )
-}
+})
 
 export default CommentItem

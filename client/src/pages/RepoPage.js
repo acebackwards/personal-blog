@@ -13,8 +13,6 @@ import StarSVG from '../img/star.svg'
 
 const RepoPage = observer(() => {
 
-    
-
     const [createComment, setCreateComment] = useState(false)
     const [repo, setRepo] = useState({})
     const {id} = useParams()
