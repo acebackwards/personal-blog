@@ -23,7 +23,6 @@ const CommentContainer = observer(({repo_id}) => {
         fetchComment(repo_id)
         .then(data => {
             commentList = [...data]
-            console.log(data)
         })
         .then(() => {
             // сортировка реплаев к пэрентам
@@ -37,7 +36,6 @@ const CommentContainer = observer(({repo_id}) => {
                     }
                 }
             }
-            console.log(sortedList)
         })
         .finally(() => setLoaded(true))                
     }, [count])
@@ -52,7 +50,6 @@ const CommentContainer = observer(({repo_id}) => {
         )
     }     
     else {
-        console.log(sortedList)
         const commentMapping = sortedList.map((comment) => {
             return (
                 <CommentItem key={comment.id} comment={comment} setCount={setCount}/>

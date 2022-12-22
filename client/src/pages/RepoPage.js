@@ -9,7 +9,6 @@ import { observer } from 'mobx-react-lite';
 import { getAllRating, getRating, setRating } from '../http/ratingApi';
 import { checkId } from '../utils/check';
 import CommentContainer from '../components/CommentContainer';
-// import {ReactComponent as StarSVG} from '../img/star.svg'
 import StarSVG from '../img/star.svg'
 import FillStarSVG from '../img/star-fill.svg'
 
@@ -23,20 +22,35 @@ const RepoPage = observer(() => {
     const repo_id = +id
     const userId = checkId()
     const rateList = [1, 2, 3, 4, 5]
+
+    const debounce = (fn, ms) => {
+        let timeout
+        return function () {
+            const fnCall = () => {fn.apply(this, arguments)}
+            clearTimeout(timeout)
+            timeout = setTimeout(fnCall, ms)
+        }
+    }
+
     useEffect(() => {
         fetchOneRepo(id)
-            .then(data => {setRepo(() => data)})
-            .then(() => getAllRating(repo_id))
+            .then(data => setRepo(() => data))
+            .then(() => getAllRating(id))
             .then(data => setRepoRate(() => data))
-            .then(console.log(repoRate))
             .then(async () => await getRating(repo_id, userId))
             .then(data => setUserRate(prev => data[0]?.rate))
-            .then(console.log(userRate))
     }, [])
 
     async function rate(rate, repo_id, user_id) {
         await setRating(rate, repo_id, user_id)
     }
+
+    async function updateRating() {
+        fetchOneRepo(id)
+            .then(data => setRepo(() => data))
+    }
+
+    updateRating = debounce(updateRating, 500)
 
     const displayRating = rateList.map(rateNum => {
             if (rateNum <= userRate) {
@@ -46,12 +60,14 @@ const RepoPage = observer(() => {
                         if(userRate === rateNum){
                         setUserRate(() => 0)}
                         else setUserRate(() => rateNum)
+                    setTimeout( updateRating(), 200)
                     }} src={FillStarSVG} alt="rate"/>
                 )
             } else {
                 return (
                     <img onClick={() => {rate(rateNum, repo_id, checkId())
                     setUserRate(() => rateNum)
+                    setTimeout( updateRating(), 200)
                     }} src={StarSVG} alt="rate"/>
                 )
             }
@@ -70,7 +86,7 @@ const RepoPage = observer(() => {
                         <ul>
                             {displayRating}
                         </ul>
-                        {repoRate}
+                        {repo.rating}
                         <img src={StarSVG} alt="rating"/>
                     </div>
                 </div>
