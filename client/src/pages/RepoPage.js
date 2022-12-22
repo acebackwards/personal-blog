@@ -30,6 +30,12 @@ const RepoPage = observer(() => {
         .then(console.log(userRate))
     }, [])
 
+    async function updateRating() {
+        await getRating(repo_id, userId)
+        .then(data => setUserRate(prev => data[0]?.rate))
+        .then(console.log(userRate))
+    }
+
     
 
     async function rate(rate, repo_id, user_id) {
@@ -39,11 +45,17 @@ const RepoPage = observer(() => {
     const displayRating = rateList.map(rateNum => {
             if (rateNum <= userRate) {
                 return (
-                    <img onClick={() => rate(rateNum, repo_id, checkId())} src={FillStarSVG} alt="rate"/>
+                    <img onClick={() => {
+                        rate(rateNum, repo_id, checkId())
+                        if(userRate === rateNum){
+                        setUserRate(() => 0)}
+                        else setUserRate(() => rateNum)
+                    }} src={FillStarSVG} alt="rate"/>
                 )
             } else {
                 return (
-                    <img onClick={() => rate(rateNum, repo_id, checkId())} src={StarSVG} alt="rate"/>
+                    <img onClick={() => {rate(rateNum, repo_id, checkId())
+                    setUserRate(() => rateNum)}} src={StarSVG} alt="rate"/>
                 )
             }
     })
