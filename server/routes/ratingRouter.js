@@ -5,7 +5,7 @@ const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/rate',  ratingController.rate)
 router.get('/:id/:user', ratingController.getOne)
-router.get('/', ratingController.getAll)
+router.get('/:id', ratingController.getAll)
 
 
 module.exports = router

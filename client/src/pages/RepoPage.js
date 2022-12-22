@@ -6,7 +6,7 @@ import { Context } from '../index';
 import { fetchComment } from '../http/commentApi';
 import CommentItem from '../components/CommentItem';
 import { observer } from 'mobx-react-lite';
-import { getRating, setRating } from '../http/ratingApi';
+import { getAllRating, getRating, setRating } from '../http/ratingApi';
 import { checkId } from '../utils/check';
 import CommentContainer from '../components/CommentContainer';
 // import {ReactComponent as StarSVG} from '../img/star.svg'
@@ -18,25 +18,21 @@ const RepoPage = observer(() => {
     const [createComment, setCreateComment] = useState(false)
     const [repo, setRepo] = useState({})
     const [userRate, setUserRate] = useState(0)
+    const [repoRate, setRepoRate] = useState({})
     const {id} = useParams()
     const repo_id = +id
     const userId = checkId()
     const rateList = [1, 2, 3, 4, 5]
     useEffect(() => {
         fetchOneRepo(id)
-            .then(data => setRepo(data))
-        .then(async () => await getRating(repo_id, userId))
-        .then(data => setUserRate(prev => data[0]?.rate))
-        .then(console.log(userRate))
+            .then(data => {setRepo(() => data)})
+            .then(() => getAllRating(repo_id))
+            .then(data => setRepoRate(() => data))
+            .then(console.log(repoRate))
+            .then(async () => await getRating(repo_id, userId))
+            .then(data => setUserRate(prev => data[0]?.rate))
+            .then(console.log(userRate))
     }, [])
-
-    async function updateRating() {
-        await getRating(repo_id, userId)
-        .then(data => setUserRate(prev => data[0]?.rate))
-        .then(console.log(userRate))
-    }
-
-    
 
     async function rate(rate, repo_id, user_id) {
         await setRating(rate, repo_id, user_id)
@@ -55,7 +51,8 @@ const RepoPage = observer(() => {
             } else {
                 return (
                     <img onClick={() => {rate(rateNum, repo_id, checkId())
-                    setUserRate(() => rateNum)}} src={StarSVG} alt="rate"/>
+                    setUserRate(() => rateNum)
+                    }} src={StarSVG} alt="rate"/>
                 )
             }
     })
@@ -73,7 +70,7 @@ const RepoPage = observer(() => {
                         <ul>
                             {displayRating}
                         </ul>
-                        {repo.rating}
+                        {repoRate}
                         <img src={StarSVG} alt="rating"/>
                     </div>
                 </div>

@@ -23,3 +23,8 @@ export const getRating = async (repo_id, userId) => {
     const {data} = await $host.get('http://193.168.49.65:5000/api/rating/' + repo_id + '/' + userId)
     return data
 }
+
+export const getAllRating = async (repo_id) => {
+    const {data} = await $host.get('http://193.168.49.65:5000/api/rating/' + repo_id)
+    return data
+}
