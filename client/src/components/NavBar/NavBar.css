@@ -46,6 +46,10 @@
 .navbar-list *:hover {
     color: #101828;
 }
+.navbar-user {
+    color: #D0D5DD;
+    font-weight: bold;
+}
 
 .navbar-auth button {
     align-items: flex-start;

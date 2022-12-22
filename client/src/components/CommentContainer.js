@@ -4,6 +4,7 @@ import { deleteComment, fetchComment } from '../http/commentApi'
 import { Context } from '../index'
 import { observer } from 'mobx-react-lite'
 import AddComment from './modals/AddComment'
+import LoaderSVG from '../img/logo.svg'
 
 
 const CommentContainer = observer(({repo_id}) => {
@@ -44,7 +45,10 @@ const CommentContainer = observer(({repo_id}) => {
 
     if (!loaded) {
         return (
-            <button>Loading...</button>
+            <div className='main-loader-item'>
+                <img src={LoaderSVG} alt=""/>
+                LOADING...
+            </div>
         )
     }     
     else {

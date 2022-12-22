@@ -4,6 +4,7 @@ const ratingController = require('../controllers/ratingController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/rate',  ratingController.rate)
+router.get('/:id/:user', ratingController.getOne)
 router.get('/', ratingController.getAll)
 
 

@@ -34,6 +34,20 @@ class RatingController {
         }
     }
 
+
+    async getOne(req, res) {
+        try {
+            // const {repo_id, userId} = req.body
+            const id = req.params.id
+            const user = req.params.user
+            const rating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1 and user_id = $2`, [id, user])
+
+            return res.json(rating.rows)
+        } catch (e) {
+            return res.json({message: 'users didn`t rate this'})
+        }
+    }
+
     async getAll(req, res) {
         try {
             const {repo_id} = req.body

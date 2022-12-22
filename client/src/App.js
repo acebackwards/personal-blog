@@ -29,7 +29,7 @@ const App = observer(() => {
         return <div className='main-loader'>
             <div className='main-loader-item'>
                 <img src={LoaderSVG} alt=""/>
-                LOADING
+                LOADING...
             </div>
         </div>
     }

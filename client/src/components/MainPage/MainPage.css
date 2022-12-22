@@ -2,16 +2,23 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: max-content;
     background: linear-gradient(#9E77ED, #243b55);
 }
+
+/* .app-container {
+    position: relative;
+    width: 100%;
+    height: max-content;
+} */
 .main-container {
-    position: absolute;
+    position: relative;
     display: flex;
     top: 0;
     left: 50%;
     width: 50%;
-    height: 100vh;
+    height: max-content;
+    min-height: 100vh;
     transform: translate(-50%);
 }
 
@@ -142,13 +149,22 @@
     height: 100%;
 
 }
-.repo-extra-rating ul button {
+.repo-extra-rating ul img {
     margin-right: 5px;
     cursor: pointer;
-    background: black;
-    border-radius: 50%;
-    height: 50%;
+}
+.repo-extra-rating ul img:last-child {
+    margin-right: 10px;
+}
+/* 
+.repo-extra-rating ul img:hover .svgObject-star {
+    fill: black;
+} */
 
+.starObject {
+    /* padding: 10px; */
+    scale: 1.5;
+    
 }
 
 .repo-extra-rating ul button:hover {
@@ -156,15 +172,18 @@
 }
 
 .repo-comment {
-    border: 1px solid grey;
     margin-top: 15px;
     padding: 20px;
     height: 500px;
     max-height: 500px;
     border-radius: 12px;
     overflow-y: scroll;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
     /* position: relative; */
 }
+.repo-comment::-webkit-scrollbar {
+    width: 0;
+  }
 
 .repo-item {
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
@@ -322,5 +341,26 @@
     .main-container {
         /* background: #000; */
         width: 100%;
+    }
+}
+
+@media (max-width: 720px) {
+    .repo-information {
+        box-shadow: none;
+    }
+    .repo-comment {
+        border: none;
+    }
+    .repo-item__create {
+        box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
+    }
+    .repo-extra {
+        padding: 0;
+    }
+    .repo-item {
+        width: 100%;
+    }
+    .repo-answer-item {
+        width: auto;
     }
 }
