@@ -50,8 +50,8 @@ class RatingController {
 
     async getAll(req, res) {
         try {
-            const {repo_id} = req.params.id
-            const rating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1`, [repo_id])
+            const id = req.params.id
+            const rating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1`, [id])
             
             return res.json(rating.rows)
         } catch (e) {
