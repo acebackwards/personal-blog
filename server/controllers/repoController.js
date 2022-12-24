@@ -1,4 +1,3 @@
-// const {Repo} = require('../models/models')
 const db = require('../db')
 
 class RepoController {

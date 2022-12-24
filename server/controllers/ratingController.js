@@ -37,7 +37,6 @@ class RatingController {
 
     async getOne(req, res) {
         try {
-            // const {repo_id, userId} = req.body
             const id = req.params.id
             const user = req.params.user
             const rating = await db.query(`SELECT * FROM ratings WHERE repo_id = $1 and user_id = $2`, [id, user])
@@ -55,7 +54,6 @@ class RatingController {
             
             return res.json(rating.rows)
         } catch (e) {
-            // return next(ApiError.badRequest('No ratings...'))
             return res.json({message: 'no ratings'})
         }
     }

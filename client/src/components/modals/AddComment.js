@@ -36,8 +36,11 @@ const AddComment = observer(({onHide, parent, setCount}) => {
     }
     return (
     <div className="repo-create-comment">
-        <h1 className="repo-create-comment-h1">Create comment</h1>
-
+        {parent ?        
+            <h1 className="repo-create-comment-h1">Create reply</h1>
+        :
+            <h1 className="repo-create-comment-h1">Create comment</h1>
+        }
         <div className="repo-create-comment-div">
             <label>Type something...</label>
             <input placeholder='Very useful...' value={text}

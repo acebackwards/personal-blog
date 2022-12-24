@@ -1,4 +1,3 @@
-// const {Comment} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const db = require('../db')
 
@@ -13,16 +12,11 @@ class CommentController {
         }
     }
 
-    // async edit(req, res) {
-    //     return res.json({message: 'edit'})
-    // }
-
     async delete(req, res) {
         try {
             const {id, user_id, role} = req.body
             const authorId = await db.query(`SELECT * FROM comments WHERE id = $1`, [id])
            
-            // console.log(id)
             if (user_id == authorId.rows[0].user_id || role == 'ADMIN') {
                 const deleteChild = await db.query(`DELETE FROM comments WHERE parent_id = $1`, [id])
                 const comment = await db.query(`DELETE FROM comments WHERE id = $1`, [id])

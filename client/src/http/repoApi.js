@@ -19,12 +19,10 @@ export const createRepo = async (title, description, url, name) => {
     //   })
       .catch((err) => {
           alert('Something went wrong...')
-        // console.log("AXIOS ERROR: ", err);
       })
 }
 
 export const deleteRepo = async (id) => {
-    // console.log(localStorage.getItem('token'))
     let axiosConfig = {
         headers: {
             "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -38,7 +36,6 @@ export const deleteRepo = async (id) => {
         // })
         .catch((err) => {
             alert('Something went wrong...')
-            // console.log("AXIOS ERROR: ", err);
         })
 }
 // {params: {limit: 5}}

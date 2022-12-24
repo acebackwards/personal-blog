@@ -14,7 +14,9 @@ const RepoList = observer(() => {
   useEffect(() => 
   {
     fetchRepo()
-        .then(data => repos.setRepos(data))
+        .then(data => {
+          console.log(data)
+          repos.setRepos(data)})
   }, [])
 
   return (
